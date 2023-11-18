@@ -13,10 +13,15 @@ const userSchema = mongoose.Schema(
         telefono: {
             type: Number,
             required: true
+        },
+        imagen: {
+            type: String
         }
     }
 
 );
+
+
 const nivelSchema = mongoose.Schema(
     {
         nivel:{
@@ -45,6 +50,8 @@ const parkingSchema = mongoose.Schema(
         }
     }
 )
+
+
 const Empresa = mongoose.model('Empresa',userSchema);
 const Nivel = mongoose.model('Nivel',nivelSchema);
 const Parking = mongoose.model('Parking', parkingSchema); 

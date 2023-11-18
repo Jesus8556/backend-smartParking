@@ -1,5 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
+
 require("dotenv").config();
 const empresaRoutes = require("./routes/empresa");
 const nivelRoutes = require("./routes/nivel");
@@ -7,7 +9,10 @@ const parkingRoutes = require("./routes/parking")
 const app = express();
 const port = process.env.PORT || 9000;
 
+app.use(cors())
 //middleware
+app.use('/public', express.static('public'));
+
 app.use(express.json())
 app.use('/api',empresaRoutes);
 app.use('/api',nivelRoutes);

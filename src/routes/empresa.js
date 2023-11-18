@@ -1,9 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const { Empresa, Nivel } = require('../models/empresas');
+const { subirImagen } = require("../models/Storage");
 //crear empresa
-router.post('/empresa', (req,res) =>{
-    const user = Empresa(req.body);
+router.post('/empresa',subirImagen.single('imagen'), async (req,res) =>{
+    const { nombre, email,telefono, imagen } = req.body;
+    const imagenUrl = req.file ? req.file.path.replace(/\\/g, '/') : null;
+
+    const user = Empresa({ nombre, email, telefono, imagen: imagenUrl });
     user
     .save()
     .then((data) => res.json(data))
@@ -11,7 +15,7 @@ router.post('/empresa', (req,res) =>{
 });
 
 //obtener empresas 
-router.get('/empresa', (req,res) =>{
+router.get('/empresa',async (req,res) =>{
     Empresa
     .find()
     .then((data) => res.json(data))
